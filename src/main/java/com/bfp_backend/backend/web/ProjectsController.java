@@ -6,14 +6,21 @@ import com.bfp_backend.backend.model.Project;
 import com.bfp_backend.backend.service.ProjectService;
 import com.bfp_backend.backend.web.dto.ProjectDto;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 
 @RestController
 @RequestMapping("/projects")
+@CrossOrigin(origins = "{*}")
 public class ProjectsController {
     
     private ProjectService projectService;
@@ -28,6 +35,7 @@ public class ProjectsController {
     public String createProject(@ModelAttribute ProjectDto projectDto )
     {
         try {
+            System.out.println("ProjectDto : "+projectDto.getProjectTitle());
             projectService.save(projectDto);
             return "success";
         } catch (Exception e) {
@@ -49,7 +57,46 @@ public class ProjectsController {
     }
 
     //get mehtod for individual project
-    //edit individual projects
-    //delete post
+    @GetMapping("/{id}")
+    public Project getProject(@PathVariable long id)
+    
+    {
+        try {
+            return projectService.getProject(id);
+        } 
+        catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
+    }
+    //patch method for edit individual projects
+    @PatchMapping("/{id}")
+    public String editProject(@PathVariable long id,@ModelAttribute ProjectDto projectDto)
+    {
+        try {
+            projectService.editProject(id,projectDto);
+            return "success";
+        } 
+        catch (Exception e) {
+            System.out.println(e);
+            return "failure";
+        }
+    }
+
+    //delete method for deleting a project
+    @DeleteMapping ("/{id}")
+    public String deleteProject(@PathVariable long id)
+    {
+        try {
+            projectService.deleteProject(id);
+            return "success";
+        } 
+        catch (Exception e) {
+            System.out.println(e);
+            return "failure";
+        }
+    }
+    
+
   
 }

@@ -11,4 +11,10 @@ public interface ProjectService  {
 
     List<Project> getAllProjects ();
 
+    Project getProject(long id);
+
+    void deleteProject(long id);
+
+    void editProject(long id, ProjectDto projectDto);
+
 }

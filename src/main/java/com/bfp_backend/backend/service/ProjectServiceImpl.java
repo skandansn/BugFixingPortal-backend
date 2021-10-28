@@ -29,6 +29,30 @@ public class ProjectServiceImpl implements ProjectService {
     public List<Project> getAllProjects() {
         return projectRepository.findAll();
     }
+
+    @Override
+    public Project getProject(long id) {
+        return projectRepository.findById(id).get();
+    }
+
+
+    @Override
+    public void deleteProject(long id) {
+        projectRepository.deleteById(id);
+        
+    }
+
+
+    @Override
+    public void editProject(long id, ProjectDto projectDto) {
+        Project project = projectRepository.findById(id).get();
+        project.setProjectTitle(projectDto.getProjectTitle());
+        project.setProjectDesc(projectDto.getProjectDesc());
+        project.setProjectFiles(projectDto.getProjectFiles());
+        project.setProjectDownloadNo(projectDto.getProjectDownloadNo());
+        projectRepository.save(project);
+        
+    }
     
     
 }
