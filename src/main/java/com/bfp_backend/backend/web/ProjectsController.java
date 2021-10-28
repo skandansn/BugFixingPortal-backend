@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/projects")
-@CrossOrigin(origins = "{*}")
+@CrossOrigin(origins = "localhost:3000")
 public class ProjectsController {
     
     private ProjectService projectService;
@@ -32,10 +33,9 @@ public class ProjectsController {
 
 
     @PostMapping
-    public String createProject(@ModelAttribute ProjectDto projectDto )
+    public String createProject(@RequestBody ProjectDto projectDto )
     {
         try {
-            System.out.println("ProjectDto : "+projectDto.getProjectTitle());
             projectService.save(projectDto);
             return "success";
         } catch (Exception e) {
@@ -58,11 +58,11 @@ public class ProjectsController {
 
     //get mehtod for individual project
     @GetMapping("/{id}")
-    public Project getProject(@PathVariable long id)
+    public Project getProject(@PathVariable String id)
     
     {
         try {
-            return projectService.getProject(id);
+            return projectService.getProject(Long.parseLong(id));
         } 
         catch (Exception e) {
             System.out.println(e);
@@ -71,7 +71,7 @@ public class ProjectsController {
     }
     //patch method for edit individual projects
     @PatchMapping("/{id}")
-    public String editProject(@PathVariable long id,@ModelAttribute ProjectDto projectDto)
+    public String editProject(@PathVariable long id,@RequestBody ProjectDto projectDto)
     {
         try {
             projectService.editProject(id,projectDto);
