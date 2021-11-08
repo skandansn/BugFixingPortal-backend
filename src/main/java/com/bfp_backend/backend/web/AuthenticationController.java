@@ -10,6 +10,7 @@ import com.bfp_backend.backend.service.CustomUserService;
 import com.bfp_backend.backend.web.dto.AuthenticationRequestDto;
 import com.bfp_backend.backend.web.dto.LoginResponseDto;
 import com.bfp_backend.backend.web.dto.UserInfoDto;
+import com.bfp_backend.backend.web.dto.UserRegistrationDto;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,6 +18,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,11 +34,13 @@ public class AuthenticationController {
     private AuthenticationManager authenticationManager;
     private JWTTokenHelper jwtTokenHelper;
     private CustomUserService userDetailsService;
+    private PasswordEncoder passwordEncoder;
 
-    public AuthenticationController(AuthenticationManager authenticationManager, JWTTokenHelper jwtTokenHelper,CustomUserService userDetailsService) {
+    public AuthenticationController(AuthenticationManager authenticationManager, JWTTokenHelper jwtTokenHelper,CustomUserService userDetailsService,PasswordEncoder passwordEncoder) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenHelper = jwtTokenHelper;
         this.userDetailsService = userDetailsService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @PostMapping("/login")
@@ -58,6 +62,29 @@ public class AuthenticationController {
         return ResponseEntity.ok(response);
 
     }
+
+    //post method for user registration
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody UserRegistrationDto userRegistrationDto) {
+            try {
+            User user=new User();
+            user.setUserEmail(userRegistrationDto.getUserEmail());
+            user.setUserHandle(userRegistrationDto.getUserHandle());
+            user.setUserPic(userRegistrationDto.getUserPic());
+            user.setUserBugsReported(userRegistrationDto.getUserBugsReported());
+            user.setUserBio(userRegistrationDto.getUserBio());
+            user.setUserRating(userRegistrationDto.getUserRating());
+            user.setUserPassword(passwordEncoder.encode(userRegistrationDto.getUserPassword()));   
+
+            userDetailsService.save(user);
+            return ResponseEntity.ok("User registered successfully");
+        } catch (Exception e) {
+            return ResponseEntity.ok("User registration failed");
+        }
+        }
+        
+    
+
 
     @GetMapping("/userInfo")
     public ResponseEntity<?> getUserInfo(Principal user)

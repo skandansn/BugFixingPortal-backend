@@ -42,7 +42,7 @@ public class User implements UserDetails {
 
     private float userRating;
 
-    private boolean enabled;
+    private boolean enabled=true;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "projectUser_fid",referencedColumnName = "userId")
