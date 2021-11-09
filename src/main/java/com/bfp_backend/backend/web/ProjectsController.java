@@ -141,18 +141,18 @@ public class ProjectsController {
         }
     }
 
-    @PostMapping("/{id}/issues/{id2}/solutions")
-    public String addSolution(@PathVariable long id,@PathVariable long id2,@RequestBody SolutionDto solutionDto)
-    {
-        try {
-            projectService.addSolution(id,id2,solutionDto);
-            return "success";
-        } 
-        catch (Exception e) {
-            System.out.println(e);
-    }
-        return "failure";
-    }
+    // @PostMapping("/{id}/issues/{id2}/solutions")
+    // public String addSolution(@PathVariable long id,@PathVariable long id2,@RequestBody SolutionDto solutionDto)
+    // {
+    //     try {
+    //         projectService.addSolution(id,id2,solutionDto);
+    //         return "success";
+    //     } 
+    //     catch (Exception e) {
+    //         System.out.println(e);
+    // }
+    //     return "failure";
+    // }
 }
    
     
