@@ -1,10 +1,14 @@
 package com.bfp_backend.backend.web;
 
 import java.util.List;
+import java.util.Set;
 
+import com.bfp_backend.backend.model.Issue;
 import com.bfp_backend.backend.model.Project;
 import com.bfp_backend.backend.service.ProjectService;
+import com.bfp_backend.backend.web.dto.IssueDto;
 import com.bfp_backend.backend.web.dto.ProjectDto;
+import com.bfp_backend.backend.web.dto.SolutionDto;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -97,7 +101,66 @@ public class ProjectsController {
             return "failure";
         }
     }
+
+    //get all projects of a useremail
+    @GetMapping("/user/{email}")
+    public Set<Long> getProjectsByUserEmail(@PathVariable String email)
+    {
+        try {
+            return projectService.getProjectsByUserEmail(email);
+        } 
+        catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
+    }
+
+    @PostMapping("/{id}/issues")
+    public String addIssue(@PathVariable long id,@RequestBody IssueDto issueDto)
+    {
+        try {
+            projectService.addIssue(id,issueDto);
+            return "success";
+        } 
+        catch (Exception e) {
+            System.out.println(e);
+            return "failure";
+        }
+    }
+  
+    //get all issues of a project
+    @GetMapping("/{id}/issues")
+    public List<Issue> getIssues(@PathVariable long id)
+    {
+        try {
+            return projectService.getIssues(id);
+        } 
+        catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
+    }
+
+    @PostMapping("/{id}/issues/{id2}/solutions")
+    public String addSolution(@PathVariable long id,@PathVariable long id2,@RequestBody SolutionDto solutionDto)
+    {
+        try {
+            projectService.addSolution(id,id2,solutionDto);
+            return "success";
+        } 
+        catch (Exception e) {
+            System.out.println(e);
+    }
+        return "failure";
+    }
+}
+   
+    
+
+
+
+
     
 
   
-}
+

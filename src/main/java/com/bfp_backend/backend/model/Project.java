@@ -79,7 +79,17 @@ public class Project {
 
     public void setProjectDownloadNo(long projectDownloadNo) {
         this.projectDownloadNo = projectDownloadNo;
+
     }
+
+    public List<Issue> getIssues() {
+        return issues;
+    }
+
+    public void setIssues(List<Issue> issues) {
+        this.issues = issues;
+    }
+    
 
     
 }

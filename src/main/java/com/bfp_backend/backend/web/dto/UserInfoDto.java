@@ -46,13 +46,16 @@ public class UserInfoDto {
     }
 
     public UserInfoDto(String userEmail,String userHandle, String userPic, String userBio, long userBugsReported,
-            float userRating) {
+            float userRating,List<Project> projects,List<Issue> issues,List<Solution> solutions) {
         this.userEmail=userEmail;
         this.userHandle = userHandle;
         this.userPic = userPic;
         this.userBio = userBio;
         this.userBugsReported = userBugsReported;
         this.userRating = userRating;
+        this.projects = projects;
+        this.issues = issues;
+        this.solutions = solutions;
     }
 
    

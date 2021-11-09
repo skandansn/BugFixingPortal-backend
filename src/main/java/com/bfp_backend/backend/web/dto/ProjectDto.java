@@ -10,15 +10,18 @@ public class ProjectDto {
 
     private long projectDownloadNo;
 
+    private String userId;
+
     
     public ProjectDto() {
     }
 
-    public ProjectDto(String projectTitle, String projectDesc, String projectFiles, long projectDownloadNo) {
+    public ProjectDto(String projectTitle, String projectDesc, String projectFiles, long projectDownloadNo, String userId) {
         this.projectTitle = projectTitle;
         this.projectDesc = projectDesc;
         this.projectFiles = projectFiles;
         this.projectDownloadNo = projectDownloadNo;
+        this.userId = userId;
     }
 
     public String getProjectTitle() {
@@ -31,6 +34,15 @@ public class ProjectDto {
 
     public String getProjectDesc() {
         return projectDesc;
+    }
+
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public void setProjectDesc(String projectDesc) {

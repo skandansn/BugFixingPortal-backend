@@ -16,18 +16,30 @@ public class Solution {
 
     private String solutionFiles;
 
+    private String solutionTitle;
+
     private String solutionDesc;
     
     public Solution() {
     }
 
-    public Solution(String solutionFiles, String solutionDesc) {
+    public Solution(String solutionFiles, String solutionDesc, String solutionTitle) {
         this.solutionFiles = solutionFiles;
         this.solutionDesc = solutionDesc;
+        this.solutionTitle = solutionTitle;
     }
 
     public long getSolutionId() {
         return solutionId;
+    }
+    
+
+    public String getSolutionTitle() {
+        return solutionTitle;
+    }
+
+    public void setSolutionTitle(String solutionTitle) {
+        this.solutionTitle = solutionTitle;
     }
 
     public void setSolutionId(long solutionId) {

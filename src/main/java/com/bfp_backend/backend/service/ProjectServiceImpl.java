@@ -105,16 +105,16 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
 
-    @Override
-    public void addSolution(long id, long id2, SolutionDto solutionDto) {
-        Issue issue = issueRepository.findById(id2).get();
-        issue.setSolution(solutionDto.getSolution());
-        issueRepository.save(issue);
+    // @Override
+    // public void addSolution(long id, long id2, SolutionDto solutionDto) {
+    //     Issue issue = issueRepository.findById(id2).get();
+    //     issue.setSolution(solutionDto.getSolution());
+    //     issueRepository.save(issue);
         
         
 
         
-    }
+    // }
     
     
 }

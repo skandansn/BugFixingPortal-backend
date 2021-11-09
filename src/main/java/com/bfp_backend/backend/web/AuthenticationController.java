@@ -91,8 +91,7 @@ public class AuthenticationController {
     {
 
         User userObject=(User)userDetailsService.loadUserByUsername(user.getName());
-
-        UserInfoDto userInfoDto=new UserInfoDto(userObject.getUserEmail(),userObject.getUserHandle(),userObject.getUserPic(),userObject.getUserBio(),userObject.getUserBugsReported(),userObject.getUserRating());
+        UserInfoDto userInfoDto=new UserInfoDto(userObject.getUserEmail(),userObject.getUserHandle(),userObject.getUserPic(),userObject.getUserBio(),userObject.getUserBugsReported(),userObject.getUserRating(),userObject.getProjects(),userObject.getIssues(),userObject.getSolutions());
         userInfoDto.setAuthorities(userObject.getAuthorities().toArray());
         return ResponseEntity.ok(userInfoDto);
     }
