@@ -71,6 +71,12 @@ public class Issue {
         this.issueFiles = issueFiles;
     }
 
-    
+    public List<Solution> getSolutions() {
+        return solutions;
+    }
+
+    public void setSolutions(List<Solution> solutions) {
+        this.solutions = solutions;
+    }
     
 }

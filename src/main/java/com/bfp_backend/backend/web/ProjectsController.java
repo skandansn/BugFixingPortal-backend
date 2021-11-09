@@ -5,6 +5,7 @@ import java.util.Set;
 
 import com.bfp_backend.backend.model.Issue;
 import com.bfp_backend.backend.model.Project;
+import com.bfp_backend.backend.model.Solution;
 import com.bfp_backend.backend.service.ProjectService;
 import com.bfp_backend.backend.web.dto.IssueDto;
 import com.bfp_backend.backend.web.dto.ProjectDto;
@@ -141,6 +142,31 @@ public class ProjectsController {
         }
     }
 
+    @PostMapping("/{id}/issues/{id2}/solutions")
+    public String addIssue(@PathVariable long id,@RequestBody SolutionDto solutionDto)
+    {
+        try {
+            projectService.addSolution(id,solutionDto);
+            return "success";
+        } 
+        catch (Exception e) {
+            System.out.println(e);
+            return "failure";
+        }
+    }
+
+    @GetMapping("/{id}/issues/{id2}/solutions")
+    public List<Solution> getSolutions(@PathVariable long id)
+    {
+        try {
+            return projectService.getSolutions(id);
+        } 
+        catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
+    }
+    
     // @PostMapping("/{id}/issues/{id2}/solutions")
     // public String addSolution(@PathVariable long id,@PathVariable long id2,@RequestBody SolutionDto solutionDto)
     // {

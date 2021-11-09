@@ -7,7 +7,9 @@ import java.util.Set;
 import com.bfp_backend.backend.model.Issue;
 import com.bfp_backend.backend.model.Project;
 import com.bfp_backend.backend.model.User;
+import com.bfp_backend.backend.model.Solution;
 import com.bfp_backend.backend.repository.IssueRepository;
+import com.bfp_backend.backend.repository.SolutionRepository;
 import com.bfp_backend.backend.repository.ProjectRepository;
 import com.bfp_backend.backend.repository.UserRepository;
 import com.bfp_backend.backend.web.dto.IssueDto;
@@ -22,11 +24,13 @@ public class ProjectServiceImpl implements ProjectService {
     private ProjectRepository projectRepository;
     private IssueRepository issueRepository;
     private UserRepository userRepository;
+    private SolutionRepository solutionRepository;
 
-    public ProjectServiceImpl(ProjectRepository projectRepository, UserRepository userRepository, IssueRepository issueRepository) {
+    public ProjectServiceImpl(ProjectRepository projectRepository, UserRepository userRepository, IssueRepository issueRepository, SolutionRepository solutionRepository) {
         this.projectRepository = projectRepository;
         this.userRepository = userRepository;
         this.issueRepository = issueRepository;
+        this.solutionRepository = solutionRepository;
     }
 
 
@@ -102,6 +106,27 @@ public class ProjectServiceImpl implements ProjectService {
         Project project = projectRepository.findById(id).get();
         List<Issue> issues=project.getIssues();
         return issues;
+    }
+
+    @Override
+    public Solution addSolution(long id, SolutionDto solutionDto) {
+        Issue issue = issueRepository.findById(id).get();
+        User user=userRepository.findByUserEmail(solutionDto.getUserId());
+        Solution solution = new Solution(solutionDto.getSolutionTitle(),solutionDto.getSolutionDesc(),solutionDto.getSolutionFiles());
+        List<Solution> solutions=issue.getSolutions();
+        solutions.add(solution);
+        issue.setSolutions(solutions);
+        List<Solution> userSolutions=user.getSolutions();
+        userSolutions.add(solution);
+        user.setSolutions(userSolutions);
+        return solutionRepository.save(solution);
+    }
+
+    @Override
+    public List<Solution> getSolutions(long id) {
+        Issue issue = issueRepository.findById(id).get();
+        List<Solution> solutions=issue.getSolutions();
+        return solutions;
     }
 
 

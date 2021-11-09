@@ -21,27 +21,27 @@ public class SolutionDto {
         this.userId = userId;
     }
 
-    public String getsolutionTitle() {
+    public String getSolutionTitle() {
         return solutionTitle;
     }
 
-    public void setsolutionTitle(String solutionTitle) {
+    public void setSolutionTitle(String solutionTitle) {
         this.solutionTitle = solutionTitle;
     }
 
-    public String getsolutionDesc() {
+    public String getSolutionDesc() {
         return solutionDesc;
     }
 
-    public void setsolutionDesc(String solutionDesc) {
+    public void setSolutionDesc(String solutionDesc) {
         this.solutionDesc = solutionDesc;
     }
 
-    public String getsolutionFiles() {
+    public String getSolutionFiles() {
         return solutionFiles;
     }
 
-    public void setsolutionFiles(String solutionFiles) {
+    public void setSolutionFiles(String solutionFiles) {
         this.solutionFiles = solutionFiles;
     }
 
