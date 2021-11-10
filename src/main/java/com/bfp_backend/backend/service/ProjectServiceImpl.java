@@ -109,8 +109,8 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public Solution addSolution(long id, SolutionDto solutionDto) {
-        Issue issue = issueRepository.findById(id).get();
+    public Solution addSolution(long id, long id2, SolutionDto solutionDto) {
+        Issue issue = issueRepository.findById(id2).get();
         User user=userRepository.findByUserEmail(solutionDto.getUserId());
         Solution solution = new Solution(solutionDto.getSolutionTitle(),solutionDto.getSolutionDesc(),solutionDto.getSolutionFiles());
         List<Solution> solutions=issue.getSolutions();
@@ -123,8 +123,8 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public List<Solution> getSolutions(long id) {
-        Issue issue = issueRepository.findById(id).get();
+    public List<Solution> getSolutions(long id,long id2) {
+        Issue issue = issueRepository.findById(id2).get();
         List<Solution> solutions=issue.getSolutions();
         return solutions;
     }

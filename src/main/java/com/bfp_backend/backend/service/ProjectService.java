@@ -28,9 +28,9 @@ public interface ProjectService  {
 
     List<Issue> getIssues(long id);
 
-    Solution addSolution(long id, SolutionDto solutionDto);
+    Solution addSolution(long id,long id2, SolutionDto solutionDto);
 
-    List<Solution> getSolutions(long id);
+    List<Solution> getSolutions(long id,long id2);
 
     // void addSolution(long id, long id2, SolutionDto solutionDto);
 

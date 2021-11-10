@@ -53,7 +53,7 @@ public class User implements UserDetails {
     private List<Issue> issues = new ArrayList<>();
     
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "solutionIssue_fid",referencedColumnName = "userId")
+    @JoinColumn(name = "solutionUser_fid",referencedColumnName = "userId")
     private List<Solution> solutions = new ArrayList<>();
 
     @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)

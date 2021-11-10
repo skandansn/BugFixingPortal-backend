@@ -143,10 +143,10 @@ public class ProjectsController {
     }
 
     @PostMapping("/{id}/issues/{id2}/solutions")
-    public String addIssue(@PathVariable long id,@RequestBody SolutionDto solutionDto)
+    public String addSolution(@PathVariable long id,@PathVariable long id2,@RequestBody SolutionDto solutionDto)
     {
         try {
-            projectService.addSolution(id,solutionDto);
+            projectService.addSolution(id,id2,solutionDto);
             return "success";
         } 
         catch (Exception e) {
@@ -156,10 +156,10 @@ public class ProjectsController {
     }
 
     @GetMapping("/{id}/issues/{id2}/solutions")
-    public List<Solution> getSolutions(@PathVariable long id)
+    public List<Solution> getSolutions(@PathVariable long id,@PathVariable long id2)
     {
         try {
-            return projectService.getSolutions(id);
+            return projectService.getSolutions(id,id2);
         } 
         catch (Exception e) {
             System.out.println(e);
