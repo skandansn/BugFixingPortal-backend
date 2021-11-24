@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,7 +20,13 @@ public class Solution {
     private String solutionTitle;
 
     private String solutionDesc;
+
+    @ManyToOne
+    private Issue issue;
     
+    @ManyToOne
+    private User user;
+
     public Solution() {
     }
 
@@ -52,6 +59,22 @@ public class Solution {
 
     public void setSolutionFiles(String solutionFiles) {
         this.solutionFiles = solutionFiles;
+    }
+
+    public Issue getIssue() {
+        return issue;
+    }
+
+    public void setIssue(Issue issue) {
+        this.issue = issue;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getSolutionDesc() {

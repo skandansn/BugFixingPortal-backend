@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -44,16 +46,19 @@ public class User implements UserDetails {
 
     private boolean enabled=true;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "projectUser_fid",referencedColumnName = "userId")
+    @OneToMany(cascade = CascadeType.ALL,targetEntity = Project.class)
+    @JoinColumn(name = "user_user_id")
+    @JsonIgnore
     private List<Project> projects = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "issueUser_fid",referencedColumnName = "userId")
+    @OneToMany(cascade = CascadeType.ALL,targetEntity = Issue.class)
+    @JoinColumn(name = "user_user_id")
+    @JsonIgnore
     private List<Issue> issues = new ArrayList<>();
     
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "solutionUser_fid",referencedColumnName = "userId")
+    @OneToMany(targetEntity = Solution.class,cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_user_id")
+    @JsonIgnore
     private List<Solution> solutions = new ArrayList<>();
 
     @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)

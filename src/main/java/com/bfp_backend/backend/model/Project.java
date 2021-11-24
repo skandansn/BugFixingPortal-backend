@@ -9,8 +9,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "projects")
@@ -27,8 +30,12 @@ public class Project {
 
     private long projectDownloadNo;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "projectIssue_fid",referencedColumnName = "projectId")
+    @ManyToOne
+    private User user;
+
+    @OneToMany(cascade = CascadeType.ALL,targetEntity = Issue.class)
+    @JoinColumn(name = "project_project_id")
+    @JsonIgnore
     private List<Issue> issues = new ArrayList<>();
 
     public Project() {
@@ -88,6 +95,14 @@ public class Project {
 
     public void setIssues(List<Issue> issues) {
         this.issues = issues;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
     
 
