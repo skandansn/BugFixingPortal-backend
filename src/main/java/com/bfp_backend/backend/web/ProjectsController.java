@@ -6,6 +6,7 @@ import java.util.Set;
 import com.bfp_backend.backend.model.Issue;
 import com.bfp_backend.backend.model.Project;
 import com.bfp_backend.backend.model.Solution;
+import com.bfp_backend.backend.model.Tester;
 import com.bfp_backend.backend.service.ProjectService;
 import com.bfp_backend.backend.web.dto.IssueDto;
 import com.bfp_backend.backend.web.dto.ProjectDto;
@@ -135,6 +136,18 @@ public class ProjectsController {
     {
         try {
             return projectService.getIssues(id);
+        } 
+        catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
+    }
+
+    @GetMapping("/{id}/testerlog")
+    public List<Tester> getTesters(@PathVariable long id)
+    {
+        try {
+            return projectService.getTesters(id);
         } 
         catch (Exception e) {
             System.out.println(e);

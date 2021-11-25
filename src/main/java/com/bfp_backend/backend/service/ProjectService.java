@@ -6,6 +6,7 @@ import java.util.Set;
 import com.bfp_backend.backend.model.Issue;
 import com.bfp_backend.backend.model.Project;
 import com.bfp_backend.backend.model.Solution;
+import com.bfp_backend.backend.model.Tester;
 import com.bfp_backend.backend.web.dto.IssueDto;
 import com.bfp_backend.backend.web.dto.ProjectDto;
 import com.bfp_backend.backend.web.dto.SolutionDto;
@@ -31,6 +32,9 @@ public interface ProjectService  {
     Solution addSolution(long id,long id2, SolutionDto solutionDto);
 
     List<Solution> getSolutions(long id,long id2);
+
+    List<Tester> getTesters(long id);
+
 
     // void addSolution(long id, long id2, SolutionDto solutionDto);
 

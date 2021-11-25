@@ -1,5 +1,6 @@
 package com.bfp_backend.backend.service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -8,6 +9,7 @@ import com.bfp_backend.backend.model.Issue;
 import com.bfp_backend.backend.model.Project;
 import com.bfp_backend.backend.model.User;
 import com.bfp_backend.backend.model.Solution;
+import com.bfp_backend.backend.model.Tester;
 import com.bfp_backend.backend.repository.IssueRepository;
 import com.bfp_backend.backend.repository.SolutionRepository;
 import com.bfp_backend.backend.repository.ProjectRepository;
@@ -129,6 +131,40 @@ public class ProjectServiceImpl implements ProjectService {
         return solutions;
     }
 
+    @Override
+    public List<Tester> getTesters(long id){
+        Project project = projectRepository.findById(id).get();
+        List<Long> issues = issueRepository.findIssuesByProjectId(id);
+        List<Long> users=issueRepository.findUserIdByProjectId(id);
+        for (int i = 0;i < issues.size();i++){
+            long iid = issues.get(i);
+            List<Long> iSolutions = solutionRepository.findSolutionsByIssueId(iid);
+            for (int j = 0;j < iSolutions.size();j++){
+                List<Long> sUsers = solutionRepository.findUserIdByIssueId(iid);
+                users.addAll(sUsers);
+            }
+        }
+        Set<Long> set = new HashSet<>(users);
+        users.clear();
+        users.addAll(set);
+        List<Tester> testers = new ArrayList<Tester>();
+        for (int i = 0; i < users.size();i++){
+            long uid = users.get(i);
+            String testerHandle = userRepository.findUserHandleById(uid);
+            int testerProjects = projectRepository.findProjectsFromUserId(uid).size();
+            int testerIssues = issueRepository.findIssuesByProjectandUserId(id, uid).size();
+            List<Long> uSolutions = new ArrayList<Long>();
+            for(int j = 0;j < issues.size();j++){
+            long iid = issues.get(j);
+                List<Long> uSol = solutionRepository.findSolutionsByIssueandUserId(iid, uid);
+                uSolutions.addAll(uSol);
+            }
+            int testerSolutions = uSolutions.size();
+            Tester tester = new Tester(testerHandle,testerProjects,testerIssues,testerSolutions);
+            testers.add(tester);
+        }
+        return testers;
+    }
 
     // @Override
     // public void addSolution(long id, long id2, SolutionDto solutionDto) {
