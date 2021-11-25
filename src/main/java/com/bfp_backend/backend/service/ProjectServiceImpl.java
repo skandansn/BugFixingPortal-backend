@@ -133,7 +133,6 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public List<Tester> getTesters(long id){
-        Project project = projectRepository.findById(id).get();
         List<Long> issues = issueRepository.findIssuesByProjectId(id);
         List<Long> users=issueRepository.findUserIdByProjectId(id);
         for (int i = 0;i < issues.size();i++){
