@@ -30,10 +30,10 @@ public class Solution {
     public Solution() {
     }
 
-    public Solution(String solutionFiles, String solutionDesc, String solutionTitle) {
-        this.solutionFiles = solutionFiles;
-        this.solutionDesc = solutionDesc;
+    public Solution(String solutionTitle,String solutionDesc,String solutionFiles) {
         this.solutionTitle = solutionTitle;
+        this.solutionDesc = solutionDesc;
+        this.solutionFiles = solutionFiles;
     }
 
     public long getSolutionId() {
