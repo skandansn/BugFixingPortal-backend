@@ -90,6 +90,19 @@ public class ProjectsController {
         }
     }
 
+    @GetMapping("/{id}/download")
+    public String increaseDownloadCount(@PathVariable long id)
+    {
+        try {
+            projectService.increaseDownloadCount(id);
+            return "success";
+        } 
+        catch (Exception e) {
+            System.out.println(e);
+            return "failure";
+        }
+    }
+    
     //delete method for deleting a project
     @DeleteMapping ("/{id}")
     public String deleteProject(@PathVariable long id)

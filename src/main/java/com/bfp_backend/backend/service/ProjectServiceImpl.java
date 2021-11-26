@@ -99,6 +99,7 @@ public class ProjectServiceImpl implements ProjectService {
         List<Issue> userIssues=user.getIssues();
         userIssues.add(issue);
         user.setIssues(userIssues);
+        user.setUserBugsReported(user.getUserBugsReported()+1);
         return issueRepository.save(issue);
     }
 
@@ -163,6 +164,13 @@ public class ProjectServiceImpl implements ProjectService {
             testers.add(tester);
         }
         return testers;
+    }
+
+    @Override
+    public void increaseDownloadCount(long id) {
+        Project project = projectRepository.findById(id).get();
+        project.setProjectDownloadNo(project.getProjectDownloadNo()+1);
+        projectRepository.save(project);
     }
 
     // @Override

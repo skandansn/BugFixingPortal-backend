@@ -35,7 +35,7 @@ public interface ProjectService  {
 
     List<Tester> getTesters(long id);
 
-
+    void increaseDownloadCount(long id);
     // void addSolution(long id, long id2, SolutionDto solutionDto);
 
 }
